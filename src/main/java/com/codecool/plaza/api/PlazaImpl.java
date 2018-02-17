@@ -1,5 +1,6 @@
 package com.codecool.plaza.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlazaImpl implements Plaza {
@@ -8,24 +9,64 @@ public class PlazaImpl implements Plaza {
     private boolean isOpen;
 
     public PlazaImpl() {
-
+        shops = new ArrayList<Shop>();
+        isOpen = false;
     }
 
 
     public List<Shop> getShops() throws PlazaIsClosedException {
-        return shops;
+        if (isOpen()) {
+            return shops;
+        } else {
+            throw new PlazaIsClosedException("The plaza is closed!");
+        }
+
     }
 
     public void addShop(Shop shop) throws ShopAlreadyExistsException, PlazaIsClosedException {
-
+        if (isOpen()) {
+            if (hasShop(shop) == false) {
+                shops.add(shop);
+            } else {
+                throw new ShopAlreadyExistsException("There is already a shop like this!");
+            }
+        } else {
+            throw new PlazaIsClosedException("The plaza is closed!");
+        }
     }
 
     public void removeShop(Shop shop) throws NoSuchShopException, PlazaIsClosedException {
-
+        if (isOpen()) {
+            if (hasShop(shop)) {
+                shops.remove(shop);
+            } else {
+                throw new NoSuchShopException("There is no shop like this!");
+            }
+        } else {
+            throw new PlazaIsClosedException("The plaza is closed!");
+        }
     }
 
     public Shop findShopByName(String name) throws NoSuchShopException, PlazaIsClosedException {
-        return null;
+        if (isOpen()) {
+            for (Shop s : shops) {
+                if (s.getName().equals(name)) {
+                    return s;
+                } else {
+                    throw new NoSuchShopException("There is no shop like this!");
+                }
+            }
+        }
+        throw new PlazaIsClosedException("The plaza is closed!");
+    }
+
+    public boolean hasShop(Shop shop) {
+        for (Shop s : shops) {
+            if (s.getName().equals(shop.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isOpen() {
