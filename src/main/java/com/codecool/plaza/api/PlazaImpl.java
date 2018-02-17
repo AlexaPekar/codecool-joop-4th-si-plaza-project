@@ -25,7 +25,7 @@ public class PlazaImpl implements Plaza {
 
     public void addShop(Shop shop) throws ShopAlreadyExistsException, PlazaIsClosedException {
         if (isOpen()) {
-            if (hasShop(shop) == false) {
+            if (!hasShop(shop)) {
                 shops.add(shop);
             } else {
                 throw new ShopAlreadyExistsException("There is already a shop like this!");
@@ -52,10 +52,9 @@ public class PlazaImpl implements Plaza {
             for (Shop s : shops) {
                 if (s.getName().equals(name)) {
                     return s;
-                } else {
-                    throw new NoSuchShopException("There is no shop like this!");
                 }
             }
+            throw new NoSuchShopException("There is no shop like this!");
         }
         throw new PlazaIsClosedException("The plaza is closed!");
     }
