@@ -5,14 +5,22 @@ import java.util.List;
 
 public class PlazaImpl implements Plaza {
 
+
+    private String name;
     private List<Shop> shops;
     private boolean isOpen;
 
-    public PlazaImpl() {
+
+    public PlazaImpl(String name) {
         shops = new ArrayList<Shop>();
         isOpen = false;
+        this.name = name;
     }
 
+
+    public String getName() {
+        return name;
+    }
 
     public List<Shop> getShops() throws PlazaIsClosedException {
         if (isOpen()) {
@@ -78,5 +86,9 @@ public class PlazaImpl implements Plaza {
 
     public void close() {
         isOpen = false;
+    }
+
+    public String toString() {
+        return "Welcome to the " + getName() + " plaza!";
     }
 }
