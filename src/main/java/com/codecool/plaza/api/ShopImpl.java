@@ -154,6 +154,7 @@ public class ShopImpl implements Shop {
         }
     }
 
+
     private class ShopEntryImpl {
 
         private Product product;

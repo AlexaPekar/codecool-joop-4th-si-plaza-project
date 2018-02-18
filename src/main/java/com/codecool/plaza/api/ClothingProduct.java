@@ -5,7 +5,7 @@ public class ClothingProduct  extends Product {
     private String material;
     private String colour;
 
-    protected ClothingProduct(long barcode, String name, String manufacturer, String material, String colour) {
+    public ClothingProduct(long barcode, String name, String manufacturer, String material, String colour) {
         super(barcode, name, manufacturer);
         this.material = material;
         this.colour = colour;
