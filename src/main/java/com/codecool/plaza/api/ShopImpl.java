@@ -1,6 +1,7 @@
 package com.codecool.plaza.api;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ public class ShopImpl implements Shop {
     public ShopImpl(String name, String owner) {
         this.name = name;
         this.owner = owner;
+        products = new HashMap<>();
     }
 
 

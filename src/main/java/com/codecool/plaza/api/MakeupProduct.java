@@ -20,6 +20,6 @@ public class MakeupProduct extends Product {
     }
 
     public String toString() {
-        return "Barcode: " + getBarcode() + "  Name: " + getName() + "  Manufacturer: " + getManufacturer() + "  Amount: " + getAmountInGrams() + "g" + "  Cruelty free: " + getCrueltyFree();
+        return "Barcode: " + getBarcode() + "  Name: " + getName() + "  Manufacturer: " + getManufacturer() + "  Amount: " + getAmountInGrams() + "g" + "  Cruelty-free: " + getCrueltyFree();
     }
 }
