@@ -79,6 +79,8 @@ public class CmdProgram {
                     handleCheckPlazaIsOpen();
                     break;
                 case "0":
+                    displayCart();
+                    displayPrices();
                     handleExit();
                     break;
                 default:
@@ -249,8 +251,7 @@ public class CmdProgram {
     public void handleListProducts() {
         if (myShop.isOpen()) {
             try {
-                if (myShop.getProducts().size() > 01
-                        ) {
+                if (myShop.getProducts().size() > 0) {
                     System.out.println("These products are in the shop:");
                     try {
                         for (Product product : myShop.getProducts()) {
@@ -306,48 +307,55 @@ public class CmdProgram {
     }
 
     public void handleAddNewProduct() {
-        if (myShop.isOpen()) {
-            Product product = null;
-            System.out.println("Please, enter the type of the product!(makeup/clothing)");
-            String type = scanner.nextLine();
-            System.out.println("Please, enter the barcode of the product!");
-            long barcode = scanner.nextLong();
-            System.out.println("Please, enter the name of the product!");
-            String name = scanner.nextLine();
-            System.out.println("Please, enter the manufacturer of the product!");
-            String manufacturer = scanner.nextLine();
-            switch (type) {
-                case "makeup":
-                    System.out.println("Please, enter the amount of the product in grams!");
-                    int amount = scanner.nextInt();
-                    System.out.println("Is the product cruelty-free?(true/false)");
-                    boolean crueltyFree = scanner.nextBoolean();
-                    product = new MakeupProduct(barcode, name, manufacturer, amount, crueltyFree);
-                case "clothing":
-                    System.out.println("Please, enter the material of the product!");
-                    String material = scanner.nextLine();
-                    System.out.println("Please, enter the colour of the product!");
-                    String colour = scanner.nextLine();
-                    product = new ClothingProduct(barcode, name, manufacturer, material, colour);
-                default:
-                    System.out.println("Wrong input!");
-            }
-            System.out.println("Please, enter the quantity of the product!");
-            int quantity = scanner.nextInt();
-            System.out.println("Please, enter the price of the product!");
-            float price = scanner.nextFloat();
-            try {
+        try {
+            if (myShop.isOpen()) {
+                Product product = null;
+                System.out.println("Please, enter the type of the product!(makeup/clothing)");
+                String type = scanner.nextLine();
+                System.out.println("Please, enter the barcode of the product!");
+                long barcode = Long.parseLong(scanner.nextLine());
+                System.out.println("Please, enter the name of the product!");
+                String name = scanner.nextLine();
+                System.out.println("Please, enter the manufacturer of the product!");
+                String manufacturer = scanner.nextLine();
+                switch (type) {
+                    case "makeup":
+                        System.out.println("Please, enter the amount of the product in grams!");
+                        int amount = Integer.parseInt(scanner.nextLine());
+                        System.out.println("Is the product cruelty-free?(true/false)");
+                        boolean crueltyFree = Boolean.parseBoolean(scanner.nextLine());
+                        System.out.println();
+                        product = new MakeupProduct(barcode, name, manufacturer, amount, crueltyFree);
+                        break;
+                    case "clothing":
+                        System.out.println("Please, enter the material of the product!");
+                        String material = scanner.nextLine();
+                        System.out.println("Please, enter the colour of the product!");
+                        String colour = scanner.nextLine();
+                        product = new ClothingProduct(barcode, name, manufacturer, material, colour);
+                        break;
+                    default:
+                        System.out.println("Wrong input!");
+                }
+                System.out.println("Please, enter the quantity of the product!");
+                int quantity = scanner.nextInt();
+                System.out.println("Please, enter the price of the product!");
+                float price = scanner.nextFloat();
                 try {
-                    myShop.addNewProduct(product, quantity, price);
-                } catch (ProductAlreadyExistsException e) {
+                    try {
+                        myShop.addNewProduct(product, quantity, price);
+                    } catch (ProductAlreadyExistsException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    System.out.println("Your product is added.");
+                } catch (ShopIsClosedException e) {
                     System.out.println(e.getMessage());
                 }
-                System.out.println("Your product is added.");
-            } catch (ShopIsClosedException e) {
-                System.out.println(e.getMessage());
+            } else {
+                System.out.println("This shop is closed!");
             }
-        } else {
-            System.out.println("This shop is closed!");
+        } catch (NumberFormatException e) {
+            System.out.println("Wrong input entered!");
         }
     }
 
@@ -455,5 +463,22 @@ public class CmdProgram {
         } else {
             System.out.println("This shop is closed!");
         }
+    }
+
+    public void displayCart() {
+        System.out.println("\nThese products are in your cart:");
+        for (Product product : cart) {
+            System.out.println(product);
+        }
+    }
+
+    public void displayPrices() {
+        float total = 0;
+        System.out.println("\nHere are the prices:");
+        for (float price : prices) {
+            System.out.println(price + " HUF");
+            total += price;
+        }
+        System.out.println("\nTotal: " + total + " HUF");
     }
 }
