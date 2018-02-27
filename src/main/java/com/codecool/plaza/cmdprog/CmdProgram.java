@@ -338,9 +338,9 @@ public class CmdProgram {
                         System.out.println("Wrong input!");
                 }
                 System.out.println("Please, enter the quantity of the product!");
-                int quantity = scanner.nextInt();
+                int quantity = Integer.parseInt(scanner.nextLine());
                 System.out.println("Please, enter the price of the product!");
-                float price = scanner.nextFloat();
+                float price = Float.parseFloat(scanner.nextLine());
                 try {
                     try {
                         myShop.addNewProduct(product, quantity, price);
@@ -362,9 +362,9 @@ public class CmdProgram {
     public void handleAddProduct() {
         if (myShop.isOpen()) {
             System.out.println("Please, enter the barcode of the product!");
-            long barcode = scanner.nextLong();
+            long barcode = Long.parseLong(scanner.nextLine());
             System.out.println("Please, enter the quantity you would like to add!");
-            int quantity = scanner.nextInt();
+            int quantity = Integer.parseInt(scanner.nextLine());
             try {
                 try {
                     myShop.addProduct(barcode, quantity);
@@ -383,9 +383,9 @@ public class CmdProgram {
     public void handleBuyProduct() {
         if (myShop.isOpen()) {
             System.out.println("Please, enter the barcode of the product, you would like to buy!");
-            long barcode = scanner.nextLong();
+            long barcode = Long.parseLong(scanner.nextLine());
             System.out.println("Please enter the quantity of the product!");
-            int quantity = scanner.nextInt();
+            int quantity = Integer.parseInt(scanner.nextLine());
             if (quantity > 1) {
                 List<Product> products = null;
                 try {
@@ -449,7 +449,7 @@ public class CmdProgram {
     public void handleCheckPrice() {
         if (myShop.isOpen()) {
             System.out.println("Please, enter the barcode of the product!");
-            long barcode = scanner.nextLong();
+            long barcode = Long.parseLong(scanner.nextLine());
             System.out.print("The price of the product is ");
             try {
                 try {
